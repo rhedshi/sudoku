@@ -1,5 +1,11 @@
 import numpy as np
 
+board = np.array([[0 for x in range(9)] for x in range(9)])
+
+# input given positions
+positions = [(4,4)]
+board[4][4] = 7
+
 class Node:
 	def __init__(self, x, y, value, level):
 		self.x = x
@@ -17,15 +23,9 @@ class Node:
 			nodes.append(Node(x, y, i, self.level + 1))
 		return nodes
 
-board = np.array([[0 for x in range(9)] for x in range(9)])
-
-positions = [(4,4)]
-board[4][4] = 7
-
-start = Node(0, -1, 0, 0)
-stack = [start]
-
 def solve(board):
+	stack = []
+	start = Node(0, -1, 0, 0)
 	current = start
 	while current.level != 81:
 		stack.extend(current.children())
