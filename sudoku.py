@@ -8,12 +8,8 @@ class Node:
 		self.level = level
 
 	def children(self):
-		if self.y == 8:
-			x = self.x + 1
-			y = 0
-		else:
-			x = self.x
-			y = self.y + 1
+		x = self.level // 9
+		y = self.level % 9
 		nodes = []
 		values = possible_values(board, x, y)
 		values.reverse()
@@ -46,18 +42,18 @@ def possible_values(board, x, y):
 	if (x,y) in positions:
 		return [board[x][y]]
 	values = [n + 1 for n in range(9)]
-	row_ = [i for i in values if i not in row(board, x)]
-	column_ = [j for j in values if j not in column(board, y)]
-	box_ = [k for k in values if k not in box(board, x, y)]
-	return list(set(row_) & set(column_) & set(box_))
+	row = [i for i in values if i not in get_row(board, x)]
+	column = [j for j in values if j not in get_column(board, y)]
+	box = [k for k in values if k not in get_3_by_3(board, x, y)]
+	return list(set(row) & set(column) & set(box))
 
-def row(board, x):
-	return filter(lambda i: i != 0, board[x])
+def get_row(board, x):
+	return filter(lambda x: x != 0, board[x])
 
-def column(board, y):
-	return filter(lambda j: j != 0, board[:,y])
+def get_column(board, y):
+	return filter(lambda x: x != 0, board[:,y])
 
-def box(board, x, y):
+def get_3_by_3(board, x, y):
 	i = x // 3
 	j = y // 3
 	box = list(board[i * 3][j * 3 : (j + 1 ) * 3]) + \
