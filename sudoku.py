@@ -1,11 +1,5 @@
 import numpy as np
 
-board = np.array([[0 for x in range(9)] for x in range(9)])
-
-# input given positions
-positions = [(4,4)]
-board[4][4] = 7
-
 class Node:
 	def __init__(self, x, y, value, level):
 		self.x = x
@@ -62,4 +56,18 @@ def get_3_by_3(board, x, y):
 	return filter(lambda x: x != 0, box)
 
 
+
+# initialize board
+board = np.array([[0 for x in range(9)] for x in range(9)])
+
+# input given positions
+n = int(raw_input()[0])
+
+positions = []
+for i in range(n):
+	x, y, m = map(int, raw_input().split())
+	positions.append((x - 1, y - 1))
+	board[x - 1][y - 1] = m
+
+# solve the puzzle
 print solve(board)
