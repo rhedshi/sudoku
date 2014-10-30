@@ -48,11 +48,11 @@ def get_column(board, y):
 	return filter(lambda x: x != 0, board[:,y])
 
 def get_3_by_3(board, x, y):
-	i = x // 3
-	j = y // 3
-	box = list(board[i * 3][j * 3 : (j + 1 ) * 3]) + \
-		  list(board[i * 3 + 1][j * 3 : (j + 1 ) * 3]) + \
-		  list(board[i * 3 + 2][j * 3 : (j + 1 ) * 3])
+	i = x // 3 * 3
+	j = y // 3 * 3
+	box = list(board[i + 0][j : j + 3]) + \
+		  list(board[i + 1][j : j + 3]) + \
+		  list(board[i + 2][j : j + 3])
 	return filter(lambda x: x != 0, box)
 
 
